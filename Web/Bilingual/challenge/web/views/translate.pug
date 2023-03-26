@@ -1,0 +1,21 @@
+extends layout.pug
+
+block content
+    h1 Hello #{username}!
+    form(method="POST" action="/translate")
+        
+        label.center(for="text-inp") Text to translate
+        textarea.form-control#text-inp(name="translationRequest[text]", cols="30", rows="10")
+        p.center Language
+        each language, index in languages
+            div.input-group
+                input(
+                    type='radio',
+                    name='language',
+                    value=language.host, 
+                    checked=index == 0 ? 'checked' : null,
+                    id='language-radio-' + index
+                )
+                label.right(for='language-radio-' + index)= language.label
+        div.input-group
+            input.submit(type="submit", value="Translate")

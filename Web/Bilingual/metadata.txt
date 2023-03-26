@@ -1,0 +1,8 @@
+title: Bilingual
+difficulty: Extreme
+description: I am using microservices to build a platform for all your translation needs! Can you make sure it's secure before I try to monetize it?
+
+Private note: The entire source code is meant to be public and I do not consider this challenge to be doable without it. It's difficult enough as is.
+Please do note that there are two secrets in the docker-compose file that need to be replaced by dummy values (the flag and cookie_secret).
+I tried to make the intended solution easier to spot, but I think it still requires significant effort to build a working payload.
+The challenge could really use someone to play test it.

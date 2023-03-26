@@ -1,0 +1,26 @@
+from Crypto.Util.number import *
+import gmpy2
+import sys
+
+p=246325257494661642969237737341065048697
+q=290462691516423784421384996389947025379
+c=56645162280378610220851948686510890667443804414543658362818899623322581491486
+#N=71548297280375560625291316608808454643552780385705940508145978735138929881163
+
+
+n = p*q
+r=(p-1)*(q-1)
+
+e=47135189
+d=(gmpy2.invert(e, r))
+
+res=pow(c,d, n)
+
+print "Cipher: ",c
+print "p: ",p
+print "q: ",q
+
+print "=== Calc ==="
+print "d=",d
+print "n=",n
+print "Decrypt: %s" % ((long_to_bytes(res)))

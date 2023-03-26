@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    command: gunicorn --certfile=/instl/server.crt --keyfile=/instl/server.key -b 0.0.0.0:443 main:app -k uvicorn.workers.UvicornWorker
+    volumes:
+      - ./app:/app
+    ports:
+      - "443:443"
+  c2c:
+    image: alpine/socat
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    # All bot that connect receive a message echo "CSC{st1ll_n0t_th3_fl4g}" which is printed in their console
+    command: TCP4-LISTEN:8888,fork,reuseaddr EXEC:'echo "JjArFGlMJWAgDxYQbh4DKhpVBiwrC1IxOQ5ROBx9"'

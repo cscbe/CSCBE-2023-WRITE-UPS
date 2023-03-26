@@ -1,0 +1,41 @@
+h1, h2, .center {
+    text-align: center;
+}
+
+body {
+    background-color: darkblue;
+    color: white;
+}
+
+a:visited {
+    color: pink;
+}
+
+label.left {
+    margin-right: 1em;
+}
+
+label.right {
+    margin-left: 1em;
+}
+
+input.submit {
+    margin-top: 1em;
+    padding: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+#main {
+    margin-left: 2em;
+    margin-right: 2em;
+}

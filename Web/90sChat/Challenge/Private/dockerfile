@@ -1,0 +1,20 @@
+FROM node:16
+
+RUN apt-get update
+RUN apt-get install chromium -y
+
+RUN useradd nodeuser
+
+WORKDIR /opt/90schat
+
+COPY . .
+
+RUN npm install
+
+ENV adminCookie=tdzruPUzQRzQUOt9kNy
+ENV port=9123
+ENV flag=CSCBE{DOCKER_TEST_FLAG_90SCHAT}
+
+RUN chmod -R +r .
+
+CMD ["su", "nodeuser", "-c", "node app.js"]

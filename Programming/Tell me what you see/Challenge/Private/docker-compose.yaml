@@ -1,0 +1,11 @@
+version: "3"
+   
+services:
+  server:
+    container_name: just_follow_the_instructions_server
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLAG=CSC{look_and_say_but_just_a_bit_faster_right}
+    restart: always

@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  90schat:
+    build: .
+    ports:
+      - "9123:9123"
+    environment:
+      adminCookie: tdzruPUzQRzQUOt9kNy
+      port: 9123
+      flag: CSC{TH3_G04T_T00K_R3V3NG3_666}

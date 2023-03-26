@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="tui-bg-blue-black" id="root">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/tuicss@2.1.1/dist/tuicss.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tuicss@2.1.1/dist/tuicss.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div
+      style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+      "
+    >
+      <div class="tui-window" style="width: 100%">
+        <fieldset class="tui-fieldset">
+          <div style="margin-bottom: 20px">
+            This part is just to give each team a separate sandbox, should not
+            be part of the challenge
+          </div>
+          <button
+            class="tui-button green-168 green-255-hover"
+            style="width: 100%"
+            onclick="createSandbox()"
+          >
+            Create & goto sandbox!
+          </button>
+        </fieldset>
+      </div>
+    </div>
+
+    <script>
+      function createSandbox() {
+        fetch("/create_team_session", { method: "POST" })
+          .then((r) => r.json())
+          .then((r) => (window.location = `/${r.team_session}/app`));
+      }
+    </script>
+  </body>
+</html>

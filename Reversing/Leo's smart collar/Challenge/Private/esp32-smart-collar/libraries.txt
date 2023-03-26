@@ -1,0 +1,5 @@
+# Wokwi Library List
+# See https://docs.wokwi.com/guides/libraries
+
+Adafruit ILI9341
+ArduinoJson

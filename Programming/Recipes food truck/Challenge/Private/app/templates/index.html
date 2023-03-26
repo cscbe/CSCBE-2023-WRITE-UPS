@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Food Truck Recipes</title>
+    <style>
+        body {
+            background-repeat: repeat;
+            background-image: url("/static/background.jpg");
+            background-size: 400px;
+        }
+
+        h1 {
+            background-color: white;
+        }
+
+        /* Add some styling to make the page look better */
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .queryrecipe {
+            margin-bottom: 40px;
+            background-color: white;
+        }
+
+        .recipe {
+            margin-bottom: 40px;
+            background-color: white;
+        }
+
+        .ingredients {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ingredients li {
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            margin-top: 20px;
+        }
+
+        .instructions ol {
+            list-style-type: decimal;
+            margin: 0;
+            padding: 0;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        p {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Food Truck Recipes</h1>
+    <div>
+        <p>
+            Welcome to our food company, where we believe that eating should be an enjoyable and delicious experience.
+            We are passionate about creating delectable and nutritious meals that can be enjoyed by everyone. Our
+            company is dedicated to providing our customers with a diverse range of food recipes, from classic dishes to
+            innovative culinary creations. Whether you are a seasoned cook or just starting out, our recipes are
+            designed to be easy to follow, with step-by-step instructions and a list of ingredients. So come along and
+            join us on this delicious journey of food and discovery. Bon appétit!
+        </p>
+    </div>
+    <!-- Search box -->
+    <div class="recipe">
+        <h2>Ingredient to receipt finder</h2>
+        <form class="search-container" method="post">
+            <input class="ingredients-input" type="text" class="search-box" placeholder="Ingredients 1" name="in1"><br>
+            <input class="ingredients-input" type="text" class="search-box" placeholder="Ingredients 2" name="in2"><br>
+            <input class="ingredients-input" type="text" class="search-box" placeholder="Ingredients 3" name="in3"><br>
+            <input class="ingredients-input" type="text" class="search-box" placeholder="Ingredients 4" name="in4"><br>
+            <button class="search-button" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="queryrecipe">
+        {% if query is not none %}
+        <h1>Found!</h1>
+        {% for recipe, ingredients in query.items() %}
+        <h2>{{ recipe }}</h2>
+        <div class="ingredients">
+            <h3>Ingredients:</h3>
+            <ul>
+                {% for ingredient in ingredients %}
+                <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1>Not found!</h1>
+    {% endif %}
+
+
+    </div>
+
+
+    {% for recipe, ingredients in recipes.items() %}
+    <div class="recipe">
+
+        <h2>{{ recipe }}</h2>
+        <div class="ingredients">
+            <h3>Ingredients:</h3>
+            <ul>
+                {% for ingredient in ingredients %}
+                <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+
+</body>
+
+</html>

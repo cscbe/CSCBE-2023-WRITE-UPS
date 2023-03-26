@@ -1,0 +1,29 @@
+version: '3'
+services:
+  php-apache-environment:
+    container_name: php-apache
+    build:
+      context: .
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+    environment:
+      MYSQL_DATABASE: horizon2
+      MYSQL_USER: horizon2
+      MYSQL_PASSWORD: horizon2
+      MYSQL_HOST: db
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+        MYSQL_DATABASE: horizon2
+        MYSQL_USER: horizon2
+        MYSQL_PASSWORD: horizon2
+        MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./scripts/data.sql:/docker-entrypoint-initdb.d/2.sql

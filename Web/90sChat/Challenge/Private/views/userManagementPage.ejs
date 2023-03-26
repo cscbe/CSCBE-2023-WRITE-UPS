@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>User Management</title>
+</head>
+<body>
+    <h1>User Management</h1>
+    <ul>
+        <% for(const user of userList) { %>
+        <li><%= user %> - <a href="ban.html?username=<%= user %>">ban</a> - <a href="promoteToSuper.html?username=<%= user %>">make admin</a></li>
+        <% } %>
+    </ul>
+</body>
+</html>

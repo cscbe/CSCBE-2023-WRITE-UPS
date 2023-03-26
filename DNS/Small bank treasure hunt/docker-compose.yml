@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+  # validating_resolver:
+  #   restart: unless-stopped
+  #   build: validating_resolver/
+  #   # ports:
+  #   # - "53:53/udp"
+  #   # - "53:53/tcp"
+  #   networks:
+  #     vpcbr:
+  #       ipv4_address: 10.5.0.2
+  # root_authoritative:
+  #   restart: unless-stopped
+  #   build: root_authoritative/
+  #   networks:
+  #     vpcbr:
+  #       ipv4_address: 10.5.0.3
+  # be_authoritative:
+  #   restart: unless-stopped
+  #   build: be_authoritative/
+  #   networks:
+  #     vpcbr:
+  #       ipv4_address: 10.5.0.4
+  smallbank_be_authoritative:
+    restart: unless-stopped
+    build: smallbank_be_authoritative/    
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.5
+    ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+  # b1gg3rbank_be_authoritative:
+  #   restart: unless-stopped
+  #   build: b1gg3rbank_be_authoritative/    
+  #   networks:
+  #     vpcbr:
+  #       ipv4_address: 10.5.0.6
+  # kbc_be_authoritative:
+  #   restart: unless-stopped
+  #   build: kbc_be_authoritative/    
+  #   networks:
+  #     vpcbr:
+  #       ipv4_address: 10.5.0.7
+
+
+
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1      

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package bilingual;
+
+enum TranslationFlag {
+  // Translation is urgent.
+  URGENT = 1;
+  // Errors are costly, only for skilled translators.
+  SENSITIVE = 3;
+}
+
+message TranslationRequestMetadata {
+  repeated fixed32 change_timestamps = 5 [packed=false];
+
+  // After beta we will want to add paid translations!
+  fixed64 bounty = 6;
+
+  repeated TranslationFlag flags = 7;
+}
+
+message TranslationRpcRequest {
+  string text = 5;
+  repeated TranslationRequestMetadata metadata = 6;
+}
+
+message TranslationRpcResponse {
+  string translated = 1;
+}

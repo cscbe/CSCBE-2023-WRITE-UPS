@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+    h1 Hello #{username}!
+    p.center Your translated text:
+    p.center= translation
+    div.center
+        a(href="/translate") Request another translation

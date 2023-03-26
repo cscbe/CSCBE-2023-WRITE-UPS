@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+    h2 Create account
+    form(method="POST" action="/")
+        div.input-group
+            label.left(for="username-inp") Username
+            input#username-inp(type="text", name="username")
+        div.input-group
+            input.submit(type="submit", value="Login")

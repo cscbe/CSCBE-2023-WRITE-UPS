@@ -1,0 +1,15 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: logs
+    static_configs:
+    - labels:
+        job: varlogs
+        host: hostname
+        __path__: /etc/promtail/logs.txt
+

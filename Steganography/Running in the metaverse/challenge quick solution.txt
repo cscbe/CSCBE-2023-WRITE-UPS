@@ -1,0 +1,20 @@
+phat_beatsies.ape => wav
+
+phat_beatsies.wab => deepsound
+
+
+4 files are included of which 3 are red harings
+
+keep_the_change.wav => spectral analysis gives red haring image
+
+keep_the_chamge.wav => wavesteg (stegolsb wavsteg -r -i Keep_The_Change.wav -o Two\ tires\ fly.\ Two\ Wail.\ A\ bamboo\ grove,\ all\ chopped\ down\ From\ it,\ warring\ songs..txt -n 1 -b 27000) gives txt with ook! code in it
+
+output.txt => ook! decoder => vvє|_[_ /-\|_£ ||V/=°2|V||-\†:°[\] 1_[][]|<$ [_]X[- |V0][$[- (_)/\/7][1_ `/°µ 8®3@|< 7(-)є (()|)3 
+
+
+vvє|_[_ /-\|_£ ||V/=°2|V||-\†:°[\] 1_[][]|<$ [_]X[- |V0][$[- (_)/\/7][1_ `/°µ 8®3@|< 7(-)є (()|)3  => leet speak decoder => 
+
+Well all information looks like noise until you break the code    (quote from snowcrash)
+
+=> CSC{Well all information looks like noise until you break the code}
+

@@ -1,0 +1,149 @@
+<html>
+<head>
+    <title>90sChat</title>
+
+    <style>
+        #chatbox {
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+        }
+        #chatmessages {
+            overflow-y: scroll;
+            height: 576px;
+        }
+        #chatinput {
+            height: 24px;
+            top: 580px;
+            display: flex;
+        }
+        #messagebox {
+            width: 820px;
+        }
+        #messagebutton {
+            width: 80px;
+        }
+        .message {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        .username {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbox">
+        <div id="chatmessages">
+            <br id="finalseperator">
+        </div>
+        <div id="chatinput">
+            <input type="text" id="messagebox">
+            <input type="submit" id="messagebutton" value="Send" onmousedown="sendMessage()">
+        </div>
+        <a href="admin" style="display: none;">Admin Panel</a>
+    </div>
+
+    <script>
+        // Stolen (but modified) from https://www.geekstrick.com/snippets/how-to-parse-cookies-in-javascript/
+        function parseCookie() {
+            return document.cookie
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+        }
+
+        function getNameColor(name) {
+            const colors = ["red","green","hotpink","blue","blueviolet"]
+            let total = 0
+            for(let i = 0; i < name.length; i++) {
+                total += name.charCodeAt(i)
+            }
+            return colors[total % colors.length]
+        }
+
+        function turnStuffIntoURL(str) {
+            const filterTable = [
+                ['<', '&lt;'],
+                ['>', '&gt;'],
+                ['"', '&quot;'],
+                ["'", '&apos;'],
+            ]
+
+            const linkRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.?[^\s]{0,}|www\.?[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{0,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.?[^\s]{0,}|www\.[a-zA-Z0-9]+\.?[^\s]{0,})/g
+
+            for(const filter of filterTable) {
+                str = str.replaceAll(filter[0], filter[1])
+            }
+
+            str = str.replaceAll(linkRegex, function(original) {
+                return `<a href="${original}">${original}</a>`
+            })
+
+            return str
+        }
+
+        async function sendMessageToAdmin(msg) {
+            const response = await fetch("/chat/sendmessage", {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'same-origin',
+                body: msg
+            })
+            const txt = await response.text()
+            console.dir(txt)
+            createMessage("admin", txt)
+        }
+
+        function createMessage(username, message) {
+            const isAtBottom = isScrolledBottom()
+
+            const spanusername = document.createElement("span")
+            spanusername.classList.add("username")
+            spanusername.style.color = getNameColor(username)
+            spanusername.innerText = username + ": "
+
+            const divmsg = document.createElement("div")
+            divmsg.classList.add("message")
+            divmsg.innerText = message
+            divmsg.innerHTML = turnStuffIntoURL(divmsg.innerHTML)
+            divmsg.prepend(spanusername)
+
+            document.getElementById("chatmessages").insertBefore(divmsg, document.getElementById("finalseperator"))
+
+            if(isAtBottom) {
+                scrollToBottom();
+            }
+        }
+
+        function isScrolledBottom() {
+            const chatmessages = document.getElementById("chatmessages")
+            return chatmessages.scrollTop + chatmessages.clientHeight == chatmessages.scrollHeight;
+        }
+
+        function scrollToBottom() {
+            const chatmessages = document.getElementById("chatmessages")
+            chatmessages.scrollTop = chatmessages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const msgbox = document.getElementById("messagebox")
+            createMessage(parseCookie().username, msgbox.value)
+            sendMessageToAdmin(msgbox.value)
+            msgbox.value = ""
+        }
+
+        document.getElementById("messagebox").addEventListener("keypress", event => {
+            if(event.key == "Enter") {
+                sendMessage()
+            }
+        })
+
+        scrollToBottom()
+    </script>
+</body>
+</html>

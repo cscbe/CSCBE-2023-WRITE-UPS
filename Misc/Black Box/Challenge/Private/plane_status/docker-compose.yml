@@ -1,0 +1,32 @@
+version: "3"
+services:
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana-storage/:/var/lib/grafana/
+        #- ./grafana-etc/:/etc/grafana/
+      - ./provisioning/:/etc/grafana/provisioning/
+    environment:
+      - GF_SECURITY_ADMIN_USER=administrator
+      - GF_SECURITY_ADMIN_PASSWORD=36DcA2JdX5Ro3maELUsPmEcKytKKpJDEa7vJakBneWaBrF2NmVF7
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_PLUGIN_MARCUSOLSSON-CSV-DATASOURCE_ALLOW_LOCAL_MODE=true
+      - GF_INSTALL_PLUGINS=marcusolsson-csv-datasource
+  loki:
+    image: grafana/loki
+    ports:
+      - "3100"
+    volumes:
+      # directory must be created first, with uid:gid 10001:10001
+      - ./loki:/loki
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      # custom config will read logs from the containers of
+      # this project
+      - ./promtail/promtail-config.yaml:/etc/promtail/config.yml
+      - ./promtail/logs.txt:/etc/promtail/logs.txt

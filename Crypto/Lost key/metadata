@@ -1,0 +1,4 @@
+title: Lost key
+description: I have lost my encryption key! Luckily I still have a plaintext/ciphertext pair. Can you please help me recover my key?
+Time to solve by a knowledgeable attacker: 30mins - 1h
+The challenge.py file and a plaintext/ciphertext pair is supposed to be public information.

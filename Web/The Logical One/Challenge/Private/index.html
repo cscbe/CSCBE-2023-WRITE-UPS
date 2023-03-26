@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" class="tui-bg-cyan-white" id="root">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/tuicss@2.1.1/dist/tuicss.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tuicss@2.1.1/dist/tuicss.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="loginScreen" style="display: none">
+      <div
+        style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 50%;
+        "
+      >
+        <div class="container full-width">
+          <div id="messageWindow" class="row" style="display: none">
+            <div class="col l12 m12 s12">
+              <div class="tui-window green-255 full-width">
+                <fieldset class="tui-fieldset no-legend">
+                  Message...
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col l6 m6 s12">
+              <div class="tui-window white-255 black-255-text full-width">
+                <fieldset class="tui-fieldset black-255-border">
+                  <button
+                    class="tui-button cyan-168 cyan-255-hover full-width"
+                    onclick="showRegister()"
+                  >
+                    Register
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+            <div class="col l6 m6 s12">
+              <div class="tui-window white-255 black-255-text full-width">
+                <fieldset class="tui-fieldset black-255-border">
+                  <button
+                    class="tui-button cyan-168 cyan-255-hover full-width"
+                    onclick="showLogin()"
+                  >
+                    Login
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="register-ui">
+            <div class="col s12 m12 l12">
+              <div class="tui-window white-255 black-255-text" style="width: 100%">
+                <fieldset class="tui-fieldset black-255-border">
+                  <div style="margin-bottom: 20px">
+                    Here you can create a new account.
+                  </div>
+
+                  <div class="container full-width">
+                    <div class="row full-width">
+                      <div class="col s3 m3 l3">Username:</div>
+                      <div class="col s9 m9 l9">
+                        <input
+                          id="register-username"
+                          class="tui-input white-168 black-255-text full-width"
+                        />
+                      </div>
+                    </div>
+                    <div class="row" style="width: 100%">
+                      <div class="col s3 m3 l3">Password:</div>
+                      <div class="col s9 m9 l9">
+                        <input
+                          id="register-password"
+                          class="tui-input white-168 black-255-text full-width"
+                          type="password"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    id="login-action"
+                    class="tui-button green-168 green-255-hover full-width"
+                    onclick="register()"
+                  >
+                    Register
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="login-ui" style="display: none">
+            <div class="col s12 m12 l12">
+              <div class="tui-window white-255 black-255-text full-width">
+                <fieldset class="tui-fieldset black-255-border">
+                  <div id="login-text" style="margin-bottom: 20px">
+                    Login to you existing account.
+                  </div>
+
+                  <div class="container full-width">
+                    <div class="row full-width">
+                      <div class="col s3 m3 l3">Username:</div>
+                      <div class="col s9 m9 l9">
+                        <input
+                          id="login-username"
+                          class="tui-input white-168 black-255-text full-width"
+                        />
+                      </div>
+                    </div>
+                    <div class="row full-width">
+                      <div class="col s3 m3 l3">Password:</div>
+                      <div class="col s9 m9 l9">
+                        <input
+                          id="login-password"
+                          class="tui-input white-168 black-255-text full-width"
+                          type="password"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    id="login-action"
+                    class="tui-button green-168 green-255-hover full-width"
+                    onclick="login()"
+                  >
+                    Login
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        let loginUI = document.getElementById("login-ui");
+        let registerUI = document.getElementById("register-ui");
+        let messageWindow = document.getElementById("messageWindow");
+
+        function showRegister() {
+          registerUI.style.display = "block";
+          loginUI.style.display = "none";
+        }
+
+        function showLogin() {
+          registerUI.style.display = "none";
+          loginUI.style.display = "block";
+        }
+
+        function showMessage(message, success) {
+          messageWindow.style.display = "block";
+          messageWindow.querySelector("fieldset").innerText = message;
+          if (success) {
+            messageWindow.querySelector(".tui-window").className = "tui-window green-168 full-width"
+          } else {
+            messageWindow.querySelector(".tui-window").className = "tui-window red-255 full-width"
+          }
+        }
+
+        function register() {
+          let usernameValue =
+            document.getElementById("register-username").value;
+          let passwordValue =
+            document.getElementById("register-password").value;
+
+          fetch(
+            `/${team_session}/api/register?user=user('${usernameValue}','${passwordValue}')`,
+            { method: "POST" }
+          )
+            .then((r) => r.json())
+            .then((r) => {
+              if (r.status === "success") {
+                showLogin();
+                showMessage(r.message, true);
+              } else {
+                showMessage(r.message, false);
+              }
+            });
+        }
+
+        function login() {
+          let username = document.getElementById("login-username").value;
+          let password = document.getElementById("login-password").value;
+
+          fetch(
+            `/${team_session}/api/login?user=user('${username}','${password}')`,
+            { method: "POST" }
+          )
+            .then((r) => r.json())
+            .then((r) => {
+              if (r.status === "success") {
+                document.cookie = `session=${r.session_uuid}; path=/${team_session}; SameSite=Strict`;
+                document.cookie = `username=${username}; path=/${team_session}; SameSite=Strict`;
+                location.reload();
+              } else {
+                showMessage(r.message, false);
+              }
+            });
+        }
+      </script>
+    </div>
+    <div id="appScreen" class="tui-scroll-white" style="display: none">
+      <nav class="tui-nav white-255">
+        <ul>
+          <li class="tui-dropdown white-168-hover" onclick="renderNoteScreen()">
+            Notes
+          </li>
+          <li
+            class="tui-dropdown white-168-hover"
+            onclick="renderBookmarkScreen()"
+          >
+            Bookmarks
+          </li>
+          <li class="tui-dropdown red-168-hover right" onclick="logout()">
+            Log out
+          </li>
+        </ul>
+      </nav>
+      <div class="full-width" style="padding-top: 50px">
+        <div id="noteScreen" style="display: none">
+          <div class="container">
+            <div class="row" id="noteContainer">
+              <div class="col s12 m12 l12">
+                <div
+                  class="tui-window white-255 black-255-text full-width"
+                  style="margin-bottom: 20px"
+                >
+                  <fieldset class="tui-fieldset black-255-border">
+                    <legend>Create New Note</legend>
+                    <div class="container full-width">
+                      <div class="row">
+                        <div class="col s12 m12 l12">
+                          <textarea
+                            id="note-input"
+                            class="tui-input white-168 black-255-text full-width"
+                            style="height: 100px;"
+                          ></textarea>
+                        </div>
+                        <div class="col s12 m12 l12"></div>
+                      </div>
+                    </div>
+                    <button
+                      class="tui-button full-width"
+                      onclick="insertNote()"
+                    >
+                      Create
+                    </button>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="bookmarkScreen" style="display: none">
+          <div class="container">
+            <div class="row">
+              <div class="col s12 m12 l12">
+                <div class="tui-window white-255 black-255-text full-width" style="margin-bottom: 20px">
+                  <table class="tui-table black-255-border full-width">
+                    <style>
+                      tr:hover {
+                        background-color: #a8a8a8;
+                      } 
+                    </style>
+                    <thead class="black-255-text">
+                        <tr>
+                            <th>URL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookmarkContainer" class="black-255-text">
+                    </tbody>
+                    <tfoot class="black-255-text">
+                        <tr>
+                            <th>URL</th>
+                        </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col s12 m12 l12">
+                <div
+                  class="tui-window white-255 black-255-text full-width"
+                  style="margin-bottom: 20px"
+                >
+                  <fieldset class="tui-fieldset black-255-border">
+                    <legend>Bookmarks</legend>
+                    <div class="container full-width">
+                      <div class="row">
+                        <div class="col s12 m12 l12">
+                          <input
+                            id="bookmark-input"
+                            class="tui-input white-168 black-255-text full-width"
+                          ></input>
+                        </div>
+                        <div class="col s12 m12 l12"></div>
+                      </div>
+                    </div>
+                    <button
+                      class="tui-button full-width"
+                      onclick="insertBookmark()"
+                    >
+                      Create
+                    </button>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        let noteScreen = document.getElementById("noteScreen");
+        let bookmarkScreen = document.getElementById("bookmarkScreen");
+
+        function logout() {
+          document.cookie = "session=; max-age=0";
+          document.cookie = "username=; max-age=0";
+          location.reload();
+        }
+
+        function renderNoteScreen() {
+          clearItems("note");
+
+          noteScreen.style.display = "block";
+          bookmarkScreen.style.display = "none";
+
+          fetch(`/${team_session}/api/action?item=note`)
+            .then((r) => r.json())
+            .then((r) => {
+              let noteContainer = document.getElementById("noteContainer");
+              for (value of r.values) {
+                let col = document.createElement("div");
+                col.className += " col s12 m12 l12 note";
+
+                let tuiWindow = document.createElement("div");
+                tuiWindow.className += "tui-window white-255 black-255-text full-width";
+                tuiWindow.style.marginBottom = "20px";
+
+                let fieldset = document.createElement("fieldset");
+                fieldset.className += "tui-fieldset no-legend black-255-border";
+                fieldset.innerText = atob(value);
+
+                tuiWindow.appendChild(fieldset);
+                col.appendChild(tuiWindow);
+                noteContainer.appendChild(col);
+              }
+            });
+        }
+
+        function renderBookmarkScreen() {
+          clearItems("bookmark");
+
+          noteScreen.style.display = "none";
+          bookmarkScreen.style.display = "block";
+
+          fetch(`/${team_session}/api/action?item=bookmark`)
+            .then((r) => r.json())
+            .then((r) => {
+              let bookmarkContainer = document.getElementById("bookmarkContainer");
+              for (value of r.values) {
+                let tr = document.createElement("tr");
+                tr.className += "bookmark";
+
+                let td = document.createElement("td");
+                td.className += "center";
+                td.innerText = atob(value);
+
+                tr.appendChild(td);
+                bookmarkContainer.appendChild(tr);
+              }
+            });
+        }
+
+        function insertNote() {
+          let noteInput = document.getElementById("note-input")
+          let value = noteInput.value;
+          insertItem("note", value, renderNoteScreen);
+          noteInput.value = "";
+        }
+
+        function insertBookmark() {
+          let bookmarkInput = document.getElementById("bookmark-input")
+          let value = bookmarkInput.value;
+          insertItem("bookmark", value, renderBookmarkScreen);
+          bookmarkInput.value = "";
+        }
+
+        function insertItem(item, value, callback) {
+          fetch(
+            `/${team_session}/api/action?item=${item}('${username}', '${btoa(value)}')`,
+            { method: "POST" }
+          )
+            .then((r) => r.json())
+            .then((r) => {
+              callback();
+            });
+        }
+
+        function clearItems(item) {
+          let tmp_items = document.getElementsByClassName(item);
+          while (tmp_items[0]) {
+            tmp_items[0].remove();
+          }
+        }
+      </script>
+    </div>
+    <script>
+      const team_session = location.pathname.split("/")[1];
+
+      let loginScreen = document.getElementById("loginScreen");
+      let appScreen = document.getElementById("appScreen");
+
+      let cookies = document.cookie.split("; ");
+
+      let username;
+      cookies.forEach((cookie) => {
+        if (cookie.startsWith("username=")) {
+          username = cookie.split("=")[1];
+        }
+      });
+
+      let i = 0;
+      while (i < cookies.length && !cookies[i].startsWith("session=")) {
+        i++;
+      }
+
+      if (i < cookies.length && cookies[i].startsWith("session=")) {
+        loginScreen.style.display = "none";
+        appScreen.style.display = "block";
+      } else {
+        loginScreen.style.display = "block";
+        appScreen.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

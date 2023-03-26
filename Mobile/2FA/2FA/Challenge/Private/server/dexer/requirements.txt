@@ -1,0 +1,6 @@
+fastapi==0.68.1
+uvicorn==0.15.0
+requests
+pycrypto
+cryptography
+redis

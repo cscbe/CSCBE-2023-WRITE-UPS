@@ -1,0 +1,16 @@
+$ORIGIN .
+$TTL 86400    ; 1 day
+be            IN SOA    be. hostmaster.be. (
+                99 ; serial
+                3600       ; refresh (1 hour)
+                1800       ; retry (30 minutes)
+                2419200    ; expire (4 weeks)
+                600        ; minimum (10 minutes)
+                )
+            NS    ns.be.
+$TTL 86400    ; 1 day
+ns.be.     A      10.10.0.3
+
+*.be.       TXT     "It's not like this is Fort Knox, there are 4 flags hidden in the data which need to be concatenated together to form the final flag"
+
+secure.be.  TXT     "CSC{PART1:ANIS}"

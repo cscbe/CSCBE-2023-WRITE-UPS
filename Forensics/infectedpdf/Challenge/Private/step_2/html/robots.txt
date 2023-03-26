@@ -1,0 +1,17 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://www.example.com/sitemap.xml
+
+# Disallow access to sensitive directories
+Disallow: /admin/
+Disallow: /private/
+
+# Hidden pages
+Disallow: /panda-info/
+Disallow: /panda-pictures/
+Disallow: /adopt-a-panda/
+
+Congratulation here is the flag: CSC{have_you_seen_the_recipe?} <- not the flag ;)
+
+This is not the waaaayy, try harder, maybe use Waze to find tha way to the secret ingredient.

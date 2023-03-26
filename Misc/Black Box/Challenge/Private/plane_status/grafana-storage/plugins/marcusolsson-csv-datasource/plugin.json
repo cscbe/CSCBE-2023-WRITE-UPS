@@ -1,0 +1,64 @@
+{
+  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
+  "alerting": true,
+  "annotations": true,
+  "backend": true,
+  "dependencies": {
+    "grafanaDependency": "\u003e=8.4.7",
+    "grafanaVersion": "8.4.7",
+    "plugins": []
+  },
+  "executable": "gpx_csv-datasource",
+  "id": "marcusolsson-csv-datasource",
+  "info": {
+    "author": {
+      "name": "Grafana Labs",
+      "url": "https://grafana.com"
+    },
+    "build": {
+      "time": 1670932852698,
+      "repo": "https://github.com/grafana/grafana-csv-datasource",
+      "branch": "main",
+      "hash": "29675413b7a78c36ce2bea100a4d733a0eb05418",
+      "build": 17
+    },
+    "description": "A data source for loading CSV data",
+    "keywords": [
+      "csv"
+    ],
+    "links": [
+      {
+        "name": "Documentation",
+        "url": "https://grafana.github.io/grafana-csv-datasource"
+      },
+      {
+        "name": "Website",
+        "url": "https://github.com/grafana/grafana-csv-datasource"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/grafana/grafana-csv-datasource/blob/main/LICENSE"
+      }
+    ],
+    "logos": {
+      "large": "img/logo.svg",
+      "small": "img/logo.svg"
+    },
+    "screenshots": [
+      {
+        "name": "Explore (Dark)",
+        "path": "img/dark.png"
+      },
+      {
+        "name": "Explore (Light)",
+        "path": "img/light.png"
+      }
+    ],
+    "updated": "2022-12-13",
+    "version": "0.6.3"
+  },
+  "logs": true,
+  "metrics": true,
+  "name": "CSV",
+  "type": "datasource"
+}

@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Oops! Something went wrong!</title>
+</head>
+
+<body>
+    <script>
+        function removeTags(txt) {
+            let ret = ""
+            let filtering = false
+            for(const c of txt) {
+                if(!filtering) ret += c
+
+                if(c == "<") {
+                    filtering = true
+                }
+                if(c == ">") {
+                    filtering = false
+                }
+            }
+            if(ret.indexOf("script") != -1) ret = "XSS detected!"
+            return ret
+        }
+
+        document.write("<h1>Error!</h1>")
+        document.write(removeTags(decodeURI(window.location.search.split("=")[1])))
+    </script>
+</body>
+</html>

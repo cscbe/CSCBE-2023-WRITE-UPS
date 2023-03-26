@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  redis:
+    build:
+      context: .
+      dockerfile: ./redis.Dockerfile
+  web:
+    environment:
+      # [IMPORTANT] Replace with dummy value.
+      - FLAG="CSC{G00d_to_s33_you_4r3_b1l1ngu4l!_a71523321c}"
+      # [IMPORTANT] Replace with dummy value.
+      - COOKIE_SECRET=733c9fc023a8cf67e4cbabc282faee81
+      # Keep this as is
+      - LANGUAGES=French=french,German=german
+      # Keep this as is
+      - HOSTS=french=french:9000,german=german:9000,redis=redis:6379
+    build: 
+      context: .
+      dockerfile: ./web.Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+  german:
+    build:
+      context: .
+      dockerfile: ./translationService.Dockerfile
+    environment:
+      - LANGUAGE=de
+  french:
+    build:
+      context: .
+      dockerfile: ./translationService.Dockerfile
+    environment:
+      - LANGUAGE=fr

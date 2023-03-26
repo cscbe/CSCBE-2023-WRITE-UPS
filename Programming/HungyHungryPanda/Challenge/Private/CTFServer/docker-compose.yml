@@ -1,0 +1,6 @@
+pandasavers:
+  build: ./HungryHungryPanda/
+  restart: unless-stopped
+
+  ports:
+    - "9876:2802"

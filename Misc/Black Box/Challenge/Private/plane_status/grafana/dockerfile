@@ -1,0 +1,5 @@
+FROM grafana/grafana:7.1.5-ubuntu
+
+# Disable Login form or not
+ADD ./provisioning /etc/grafana/provisioning
+ADD ./dashboards /etc/grafana/dashboards

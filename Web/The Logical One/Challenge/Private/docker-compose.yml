@@ -1,0 +1,9 @@
+version: "3.5"
+
+services:
+  the_logical_one:
+    build: .
+    environment:
+      CHALL_FLAG: CSC{ju5t_inj3ct_th3_f1ct_f2586e11}
+    ports:
+      - 5000:5000
